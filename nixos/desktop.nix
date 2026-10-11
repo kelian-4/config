@@ -1,8 +1,7 @@
 { config, pkgs, ... }:
 {
-  # Serveur X11
-  services.xserver.enable = true;
 
+  services.xserver.enable = true;
   services.displayManager.sddm = {
   enable = true;
   wayland.enable = true;
@@ -30,37 +29,19 @@
 
   
 
-  # Clavier X11
   services.xserver.xkb = {
     layout = "no";
     variant = "";
   };
 
-  # Clavier console
   console.keyMap = "no";
 
-  # Hyprland
-  programs.hyprland = {
-    enable = true;
-    xwayland.enable = true;
-  };
 
-  # XDG Desktop Portal
-  xdg.portal = {
-    enable = true;
-    extraPortals = [
-      pkgs.xdg-desktop-portal-hyprland
-    ];
-  };
-
-  # KDE Connect
   programs.kdeconnect.enable = true;
 
-  # Polkit
   security.polkit.enable = true;
   systemd.user.services.niri-flake-polkit.enable = false;
 
-  # DBus
   services.dbus.enable = true;
 
   environment.sessionVariables = {

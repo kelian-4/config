@@ -1,52 +1,72 @@
-{ config, pkgs,inputs, ... }:
+{ config,lib, pkgs,inputs,system, ... }:
 {
+
+nixpkgs.overlays = [
+  (final: prev: {
+    mpv = prev.mpv.override {
+      scripts = [ final.mpvScripts.mpris ];
+    };
+  })
+];
+  nixpkgs.config.permittedInsecurePackages = [
+  "olm-3.2.16"
+];
+  programs.helium.enable = true;
+
   environment.systemPackages = with pkgs; [
-    signal-desktop
-    brave
+    apktool
+    jadx
+    apksigner
+    qemu_kvm
+    inputs.cera.packages.${system}.default
+    cargo
+    rustc
+    clippy
+    rustfmt
+    rust-analyzer
+    localsend
+    discord
+    assetripper
+    ilspycmd
+    dotnet-sdk
+    iloader
+    ngrok
+    bottles
+    mpv 
+    winboat
+    antigravity-cli
+    docker 
+    element-desktop
+    pam
+    hyprshutdown
+    jq
+    hyprpicker
+    qt6Packages.qtgraphs
+    libqalculate
+    go
+    hugo
+    waydroid
     vscode
     fastfetch
     htop
-    btop
     kitty
     fish
-    android-studio
-    mpv
-    gnome-calculator
-    steam-run
     telegram-desktop
-    ente-desktop
-    gdevelop
     qt6Packages.qt6ct
-    steam
-    qlementine
     qt6.qtbase
     qt5.qtbase
     proton-vpn
     proton-pass
-    onlyoffice-desktopeditors
-    zeal
     kdePackages.dolphin
-    thunar
-    opencode
     glib
     dconf
-    nautilus
     gsettings-desktop-schemas
-    waybar
-    wofi
-    rofi
-    swaynotificationcenter
     quickshell
-    hyprpaper
     hypridle
-    hyprlock
     wl-clipboard
     playerctl
-    foot
     wf-recorder
-    protontricks
     hyprpolkitagent
-    awww    
     kdePackages.qtmultimedia
     networkmanagerapplet
     qt5.qtwayland
@@ -67,11 +87,8 @@
     unzip
     curl
     gnumake
-    pkg-config
     nodejs
-    python3
     tree
-    gemini-cli
     plymouth
     brightnessctl
     ddcutil
@@ -82,9 +99,6 @@
     slurp
     polkit
     ifuse
-    flutter
-    dart
-    steam-run-free
     android-tools        
     jdk17                
     cmake
@@ -95,11 +109,11 @@
     xz
     hyprlandPlugins.hyprbars
   (python3.withPackages (ps: with ps; [
+    tqdm 
+    h5py
     ipykernel
     jupyter
     notebook
-    tensorflow
-    keras
     numpy
     scikit-learn
     pandas
@@ -107,6 +121,10 @@
     matplotlib
     seaborn
     pip
+    pooch
+    opencv-python
+    evdev 
+    websockets
   ]))
    ffmpeg
    power-profiles-daemon
@@ -116,9 +134,13 @@
 ];
 
 
-    programs.nix-ld = {
+programs.nix-ld = {
   enable = true;
   libraries = with pkgs; [
+    xkeyboard-config
+    gmp
+    libgpg-error
+    fribidi
     nss
     nspr
     libX11
@@ -128,9 +150,6 @@
     libXi
     libGL
     zlib
-    glib
-    nss
-    nspr
     dbus
     atk
     cups
@@ -143,22 +162,102 @@
     alsa-lib
     libpulseaudio
     libpng
-    zlib zstd stdenv.cc.cc curl openssl attr libssh bzip2
-    libxml2 acl libsodium util-linux xz systemd
-    libXcomposite libXtst libXrandr libXext
-    libX11 libXfixes libxcb libXdamage
-    libxshmfence libXxf86vm libXinerama
-    libXcursor libXrender libXScrnSaver
-    libXi libSM libICE
-    libGL libva pipewire libelf pulseaudio libpulseaudio
-    alsa-lib vulkan-loader libgbm libdrm
-    glib gtk2 gtk3 gnome2.GConf libxkbcommon pango cairo
-    libpng atk cups
-    nspr nss libcap SDL2 libusb1 dbus-glib ffmpeg
-    networkmanager libxcrypt coreutils pciutils
-    dbus expat libnotify gsettings-desktop-schemas icu
+    zstd
+    stdenv.cc.cc
+    stdenv.cc.cc.lib
+    curl
+    openssl
+    attr
+    libssh
+    bzip2
+    libxml2
+    acl
+    libsodium
+    util-linux
+    xz
+    systemd
+    libXcomposite
+    libXrandr
+    libXfixes
+    libxcb
+    libXdamage
+    libxshmfence
+    libXxf86vm
+    libXinerama
+    libXcursor
+    libXScrnSaver
+    libSM
+    libICE
+    libva
+    pipewire
+    libelf
+    pulseaudio
+    vulkan-loader
+    libgbm
+    glib
+    gtk2
+    gtk3
+    libnotify
+    gsettings-desktop-schemas
+    icu
+    fontconfig
+    freetype
+    libcap
+    SDL2
+    libusb1
+    dbus-glib
+    ffmpeg
+    networkmanager
+    libxcrypt
+    coreutils
+    pciutils
+    e2fsprogs
+    krb5
+    keyutils
+    at-spi2-atk
+    at-spi2-core
+    avahi
+    brotli
+    libbsd
+    colord
+    libdatrie
+    libdeflate
+    elfutils
+    enchant2
+    libepoxy
+    libevdev
+    libffi
+    libgcrypt
+    gdk-pixbuf
+    gnutls
+    nettle
+    graphite2
+    gst_all_1.gstreamer
+    gst_all_1.gst-plugins-base
+    gst_all_1.gst-plugins-good
+    libgudev
+    harfbuzz
+    p11-kit
+    pixman
+    libpsl
+    librsvg
+    libseccomp
+    libsecret
+    libselinux
+    libsoup_3
+    sqlite
+    libthai
+    libtiff
+    libunistring
+    libunwind
+    wayland
+    libwebp
+    woff2
+    libxslt
+    nghttp2
+    orc
+    hyphen
   ];
 };
-
 
 }
