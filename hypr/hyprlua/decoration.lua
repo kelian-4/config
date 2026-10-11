@@ -7,7 +7,7 @@
 hl.config({
     decoration = {
         rounding = 10,
-        rounding_power = 10,
+        rounding_power = 2,
         active_opacity = 1.0,
         inactive_opacity = 1.0,
         shadow = {
@@ -30,7 +30,3 @@ hl.config({
         },
     },
 })
-
-hl.layer_rule({ match = { namespace = "quickshell:notifpopup" }, blur = true,ignore_alpha = 0.5, })
-hl.layer_rule({ match = { namespace = "quickshell:notifcenter" }, blur = true, ignore_alpha = 0.5 })
-hl.layer_rule({ match = { namespace = "quickshell:ai" }, blur = true, ignore_alpha = 0,1})
