@@ -168,7 +168,7 @@ environment.etc."xdg/menus/plasma-applications.menu".source =
       telegram = {
         api_id = 31946952;
         api_hash = "59f70628908ddd2f76d0af14308d03e1";
-        bot_token = "8941605114:AAFXQJ-blQhuam1bueR-tgk2EVuDavVIMds";
+        bot_token = ";
       };
       bridge = {
         permissions = {
